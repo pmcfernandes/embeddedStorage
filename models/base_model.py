@@ -5,7 +5,9 @@ import models
 
 class BaseModel:
     def __init__(self, *args, **kwargs):
-        """ Init function """
+        """
+        Init constructor function
+        """
         if 'id' in kwargs:
             self.id = kwargs['id']
         else:
@@ -23,16 +25,22 @@ class BaseModel:
             self.updated_at = datetime.now()
 
     def __str__(self):
-        """ toString function """
+        """
+        Convert to a serialized string
+        """
         return f"[{type(self).__name__}] ({self.id}) {self.__dict__}"
 
     def save(self):
-        """ Save model to storage """
+        """
+        Save model to storage
+        """
         self.updated_at = datetime.now()
         models.storage.save()
 
     def to_dict(self):
-        """ Convert model to dict"""
+        """
+        Convert model to dict for easy JSON convert
+        """
         my_dict = self.__dict__.copy()
         my_dict["__class__"] = self.__class__.__name__
         my_dict["created_at"] = my_dict["created_at"].isoformat()
